@@ -1,9 +1,10 @@
 #include <iostream>
 #include <string>
+#include "token.h"
 using namespace std;
 
 class Lexer{
     public:
-    string getNextToken();
+    Token getNextToken();
     private:
 };
