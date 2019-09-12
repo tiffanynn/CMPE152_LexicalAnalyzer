@@ -1,0 +1,3 @@
+C:/Users/tient/CLionProjects/CMPE152_LexicalAnalyzer/cmake-build-debug/CMakeFiles/CMPE152_LexicalAnalyzer.dir
+C:/Users/tient/CLionProjects/CMPE152_LexicalAnalyzer/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/tient/CLionProjects/CMPE152_LexicalAnalyzer/cmake-build-debug/CMakeFiles/rebuild_cache.dir
