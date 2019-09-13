@@ -6,15 +6,18 @@ using namespace std;
 
 class Token {
     public:
-    Token(char t);
-    int token_value; 
-    string token_names[18] = {"AND",
-"BASE_TYPE","BREAK","DO", "ELSE","EQ","FALSE","FOR", "GE",
-"ID", "IF", "LE","NE","NUM","OR", "REAL", "TRUE", "WHILE"
-};
+    Token();
+    Token(string input, string attributes);
+    string lexerme;
+    string token_value; 
 
 };
 
-Token::Token(char t){
- token_value  = t;
+Token::Token(){
+    lexerme = "";
+    token_value = "";
+}
+Token::Token(string input, string attributes){
+    lexerme = input;
+    token_value = attributes;
 };
