@@ -6,20 +6,16 @@ using namespace std;
 
 class Token {
     public:
-    Token(int t);
+    Token(char t);
     string toString();
     int token_value; 
-    string keywords[18] = {"AND",
+    string token_names[18] = {"AND",
 "BASE_TYPE","BREAK","DO", "ELSE","EQ","FALSE","FOR", "GE",
 "ID", "IF", "LE","NE","NUM","OR", "REAL", "TRUE", "WHILE"
 };
 
 };
 
-Token::Token(int t){
+Token::Token(char t){
  token_value  = t;
-};
-
-string Token::toString(){
-    return ("" + (char)token_value);
 };
