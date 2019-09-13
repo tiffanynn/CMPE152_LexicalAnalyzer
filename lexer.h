@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <cstdlib>
 #include <fstream>
 #include "token.h"
@@ -8,29 +9,24 @@ using namespace std;
 class Lexer{
     public:
     Lexer();
-    Token *getNextToken();
-    Token *obtained_tokens;
-    int size;
+    vector<Token> obtained_tokens;
+    vector<Token> getNextToken();
     string token_names[18] = {"AND",
 "BASE_TYPE","BREAK","DO", "ELSE","EQ","FALSE","FOR", "GE",
 "ID", "IF", "LE","NE","NUM","OR", "REAL", "TRUE", "WHILE"
 };
-    int size;
     void print();
 };
 
-Lexer::Lexer(){
-    //have a set number first for the size
-    size = 50;
-    Token *obtained_tokens = new Token[size];
-}
-Token Lexer::*getNextToken(){
+
+//is this a function that we can use 
+vector<Token> Lexer::getNextToken(){
     /*
     Was thinking first, scan the file in here
     Get all the tokens and print them out when file is done scanned
     */
-    int size = 50;
-    Token *obtained_tokens = new Token[size];
+   int size = 50;
+   Token *tokens = new Token[size];
    ifstream in_stream;
    in_stream.open("test.txt");
    if(!in_stream){
@@ -50,22 +46,25 @@ Token Lexer::*getNextToken(){
        }
        else if(c == '{' || c == '}' || c ==';' || c== '<' || c == '>'){
            Token something(c, c);
-           obtained_tokens[i] = something;
+           tokens[i] = something;
            i++;
        }
        //what about finding keywords?
     
         //need to add stuff
        else if(in_stream.eof()){
-           //Token eof();
-           //not sure how to account for EOF token
+           Token end("EOF", "EOF");
+           tokens[i] = end;
+           size = size+1;
+           break;
        }
    }
-   return *obtained_tokens;
+   return *tokens;
 }
 
 void Lexer::print(){
     for(int i =0; i < size; i++){
-
+        cout << obtained_tokens[i].lexerme << '\t' << obtained_tokens[i].token_value << endl;
     }
+    delete[] obtained_tokens;
 }
