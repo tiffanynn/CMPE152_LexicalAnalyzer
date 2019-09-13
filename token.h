@@ -8,7 +8,12 @@ class Token {
     public:
     Token(int t);
     string toString();
-    int token_value; //final keyword?
+    int token_value; 
+    string keywords[18] = {"AND",
+"BASE_TYPE","BREAK","DO", "ELSE","EQ","FALSE","FOR", "GE",
+"ID", "IF", "LE","NE","NUM","OR", "REAL", "TRUE", "WHILE"
+};
+
 };
 
 Token::Token(int t){

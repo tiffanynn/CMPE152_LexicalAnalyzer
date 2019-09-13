@@ -23,7 +23,8 @@ for(i = 0; i < 32; ++i){
 
 int main(){
     char ch, tempstorage[15], operators[] = "+-*/%=";
-    ifstream fin("test.txt");
+    ifstream fin;
+    fin.open("test.txt");
     int i,j=0;
     if(!fin.is_open()){
         cout<<"File cannot be read\n";
@@ -50,7 +51,7 @@ int main(){
                 cout<<tempstorage<<" is a keyword\n";
             
             else
-                cout<<tempstorage<<" is an indentifier\n";
+                cout<<tempstorage<<" is an identifier\n";
         }
     }
     fin.close();
