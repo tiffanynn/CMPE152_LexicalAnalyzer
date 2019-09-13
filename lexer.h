@@ -32,20 +32,22 @@ vector<Token> Lexer::getNextToken(){
        cout << "Cannot open file." << endl;
        exit(1);
    }
+
    char c;
+   char file_contents[100];
+   int size = 0;
    /*
    1. Scan characters from the file into an array or something lol
    2. Have a for-loop comparing the characters and tokens
    3. Push into the vector
    */ 
   while(in_stream.get(c)){
-      int i = 0;
-      char file_contents[100];
-      file_contents[i] = c;
-      i++;
+      file_contents[size] = c;
+      size++;
   }
-   while(in_stream.get(c)){
 
+
+for(int i = 0; i < size; i++){}
        if(isspace(c)){
            //something with creating a new token
        }
@@ -53,7 +55,7 @@ vector<Token> Lexer::getNextToken(){
            //something here to deal with the float
        }
        else if(c == '{' || c == '}' || c ==';' || c== '<' || c == '>'){
-           string symbol = string(c);
+           string symbol(1, c);
            Token something(symbol, symbol);
            obtained_tokens.push_back(something);
         
@@ -61,12 +63,11 @@ vector<Token> Lexer::getNextToken(){
        //what about finding keywords?
     
         //need to add stuff
-       else if(in_stream.eof()){
+  
            Token end("EOF", "EOF");
            obtained_tokens.push_back(end);
            break;
-       }
-   }
+      
    return obtained_tokens;
 }
 
