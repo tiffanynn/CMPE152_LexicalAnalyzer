@@ -25,8 +25,7 @@ vector<Token> Lexer::getNextToken(){
     Was thinking first, scan the file in here
     Get all the tokens and print them out when file is done scanned
     */
-   int size = 50;
-   Token *tokens = new Token[size];
+
    ifstream in_stream;
    in_stream.open("test.txt");
    if(!in_stream){
@@ -34,8 +33,17 @@ vector<Token> Lexer::getNextToken(){
        exit(1);
    }
    char c;
-   int i = 0;
-
+   /*
+   1. Scan characters from the file into an array or something lol
+   2. Have a for-loop comparing the characters and tokens
+   3. Push into the vector
+   */ 
+  while(in_stream.get(c)){
+      int i = 0;
+      char file_contents[100];
+      file_contents[i] = c;
+      i++;
+  }
    while(in_stream.get(c)){
 
        if(isspace(c)){
@@ -45,26 +53,25 @@ vector<Token> Lexer::getNextToken(){
            //something here to deal with the float
        }
        else if(c == '{' || c == '}' || c ==';' || c== '<' || c == '>'){
-           Token something(c, c);
-           tokens[i] = something;
-           i++;
+           string symbol = string(c);
+           Token something(symbol, symbol);
+           obtained_tokens.push_back(something);
+        
        }
        //what about finding keywords?
     
         //need to add stuff
        else if(in_stream.eof()){
            Token end("EOF", "EOF");
-           tokens[i] = end;
-           size = size+1;
+           obtained_tokens.push_back(end);
            break;
        }
    }
-   return *tokens;
+   return obtained_tokens;
 }
 
 void Lexer::print(){
-    for(int i =0; i < size; i++){
+    for(int i =0; i < obtained_tokens.size; i++){
         cout << obtained_tokens[i].lexerme << '\t' << obtained_tokens[i].token_value << endl;
     }
-    delete[] obtained_tokens;
 }
