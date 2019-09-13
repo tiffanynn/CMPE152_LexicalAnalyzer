@@ -7,7 +7,6 @@ using namespace std;
 class Token {
     public:
     Token(char t);
-    string toString();
     int token_value; 
     string token_names[18] = {"AND",
 "BASE_TYPE","BREAK","DO", "ELSE","EQ","FALSE","FOR", "GE",
