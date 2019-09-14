@@ -46,27 +46,23 @@ vector<Token> Lexer::getNextToken(){
       size++;
   }
 
+//need to consider keywords and stuff
 
-for(int i = 0; i < size; i++){}
-       if(isspace(c)){
-           //something with creating a new token
-       }
-       else if(c == '.'){
-           //something here to deal with the float
-       }
-       else if(c == '{' || c == '}' || c ==';' || c== '<' || c == '>'){
+for(int i = 0; i < size; i++){
+    if(c == '{' || c == '}' || c ==';' || c== '<' || c == '>'){
            string symbol(1, c);
            Token something(symbol, symbol);
            obtained_tokens.push_back(something);
         
        }
-       //what about finding keywords?
-    
-        //need to add stuff
-  
+   else if( i == (size-1)){
            Token end("EOF", "EOF");
            obtained_tokens.push_back(end);
-           break;
+    }
+}
+
+
+           
       
    return obtained_tokens;
 }
