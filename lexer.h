@@ -50,6 +50,8 @@ vector<Token> Lexer::getNextToken(){
 string temp = ""; //need this to store in letters 
 
 for(int i = 0; i < size; i++){
+
+    
     //checking if there's letters first
     if(isalpha(file_contents[i])){
         //probably going to hard code everything
