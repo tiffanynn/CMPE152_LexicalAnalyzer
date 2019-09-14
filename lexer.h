@@ -16,11 +16,14 @@ class Lexer
         { "AND", "BASE_TYPE", "BREAK", "DO", "ELSE", "EQ", "FALSE", "FOR", "GE",
                 "ID", "IF", "LE", "NE", "NUM", "OR", "REAL", "TRUE", "WHILE" };
         void print();
+        char file_contents[100];
+        int size;
 };
 
 Lexer::Lexer()
 {
     obtained_tokens.push_back(Token("", ""));
+    size = 0;
 }
 
 //is this a function that we can use
@@ -32,6 +35,7 @@ vector<Token> Lexer::getNextToken()
      */
 
     ifstream in_stream;
+    char c;
     in_stream.open("test.txt");
     if (!in_stream)
     {
@@ -39,9 +43,7 @@ vector<Token> Lexer::getNextToken()
         exit(1);
     }
 
-    char c;
-    char file_contents[100];
-    int size = 0;
+
     /*
      1. Scan characters from the file into an array or something lol
      2. Have a for-loop comparing the characters and tokens
@@ -49,21 +51,30 @@ vector<Token> Lexer::getNextToken()
      */
     while (in_stream.get(c))
     {
+
+        if(isspace(c)|| c == '\n'){
+            continue;
+        }
+        else{
         file_contents[size] = c;
         size++;
     }
+    }
     in_stream.close();
-//need to consider keywords and stuff
-    string temp = ""; //need this to store in letters
+
+
+    //need to consider keywords and stuff
+
 
     for (int i = 0; i < size; i++)
     {
 
+        string temp = ""; //need this to store in letters
         //checking if there's letters first
         if (isalpha(file_contents[i]))
         {
             //probably going to hard code everything
-            temp += file_contents[i];
+              // temp += file_contents[i];
             //don't know how to deal with any letters oop
 
             // if(file_contents[i] == 't'){
@@ -74,49 +85,26 @@ vector<Token> Lexer::getNextToken()
         }
 
         //considering the symbols
-        else if (file_contents[i] == '{')
+        else if (file_contents[i] == '{' || file_contents[i] == '}')
         {
             string symbol(1, file_contents[i]);
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
-        else if (file_contents[i] == '}')
+
+        else if (file_contents[i] == ';' || file_contents[i] == '+')
         {
             string symbol(1, file_contents[i]);
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
-        else if (file_contents[i] == ';')
+        else if (file_contents[i] == '-'|| file_contents[i] == '*')
         {
             string symbol(1, file_contents[i]);
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
-        else if (file_contents[i] == '+')
-        {
-            string symbol(1, file_contents[i]);
-            Token something(symbol, symbol);
-            obtained_tokens.push_back(something);
-        }
-        else if (file_contents[i] == '-')
-        {
-            string symbol(1, file_contents[i]);
-            Token something(symbol, symbol);
-            obtained_tokens.push_back(something);
-        }
-        else if (file_contents[i] == '*')
-        {
-            string symbol(1, file_contents[i]);
-            Token something(symbol, symbol);
-            obtained_tokens.push_back(something);
-        }
-        else if (file_contents[i] == '(')
-        {
-            string symbol(1, file_contents[i]);
-            Token something(symbol, symbol);
-            obtained_tokens.push_back(something);
-        }
-        else if (file_contents[i] == ')')
+        else if (file_contents[i] == '(' || file_contents[i] == ')')
         {
             string symbol(1, file_contents[i]);
             Token something(symbol, symbol);
@@ -141,11 +129,11 @@ vector<Token> Lexer::getNextToken()
                 }
                 else
                 {
-                    string symbol(1, file_contents[i]);
-                    Token something(symbol, symbol);
+                    Token something(temp, temp);
                     obtained_tokens.push_back(something);
                 }
             }
+
             else if (file_contents[i] == '<')
             {
                 if (file_contents[i + 1] == '=')
@@ -161,6 +149,26 @@ vector<Token> Lexer::getNextToken()
                     obtained_tokens.push_back(something);
                 }
             }
+
+
+
+            else if(file_contents[i] == '='){
+                temp += file_contents[i];
+                if(file_contents[i+1] == '='){
+
+                    temp += file_contents[i + 1];
+                    Token something(temp, "EQ");
+                    obtained_tokens.push_back(something);
+                }
+
+                else{
+                        Token something(temp, temp);
+                        obtained_tokens.push_back(something);
+                   }
+            }
+
+
+
         }
 
     }
@@ -171,8 +179,8 @@ vector<Token> Lexer::getNextToken()
 
 void Lexer::print()
 {
-    int size = obtained_tokens.size();
-    for (int i = 0; i < size; i++)
+    int vector_size = obtained_tokens.size();
+    for (int i = 0; i < vector_size; i++)
     {
         cout << obtained_tokens[i].lexerme << '\t'
                 << obtained_tokens[i].token_value << endl;
