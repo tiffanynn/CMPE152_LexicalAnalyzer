@@ -18,8 +18,9 @@ class Lexer
         void print();
 };
 
-Lexer::Lexer(){
-    obtained_tokens.push_back(Token("0","0"));
+Lexer::Lexer()
+{
+    obtained_tokens.push_back(Token("", ""));
 }
 
 //is this a function that we can use
@@ -51,7 +52,7 @@ vector<Token> Lexer::getNextToken()
         file_contents[size] = c;
         size++;
     }
-
+    in_stream.close();
 //need to consider keywords and stuff
     string temp = ""; //need this to store in letters
 
@@ -161,19 +162,16 @@ vector<Token> Lexer::getNextToken()
                 }
             }
         }
-        else if (i == (size - 1))
-        {
-            Token end("EOF", "EOF");
-            obtained_tokens.push_back(end);
-        }
-    }
 
+    }
+    Token end("EOF", "EOF");
+    obtained_tokens.push_back(end);
     return obtained_tokens;
 }
 
 void Lexer::print()
 {
-    unsigned int size = obtained_tokens.size();
+    int size = obtained_tokens.size();
     for (int i = 0; i < size; i++)
     {
         cout << obtained_tokens[i].lexerme << '\t'
