@@ -43,7 +43,6 @@ vector<Token> Lexer::getNextToken()
         exit(1);
     }
 
-
     /*
      1. Scan characters from the file into an array or something lol
      2. Have a for-loop comparing the characters and tokens
@@ -52,29 +51,32 @@ vector<Token> Lexer::getNextToken()
     while (in_stream.get(c))
     {
 
-        if(isspace(c)|| c == '\n'){
+        if (isspace(c) || c == '\n')
+        {
             continue;
         }
-        else{
-        file_contents[size] = c;
-        size++;
-    }
+        else
+        {
+            file_contents[size] = c;
+            size++;
+        }
     }
     in_stream.close();
 
-
     //need to consider keywords and stuff
-
 
     for (int i = 0; i < size; i++)
     {
 
         string temp = ""; //need this to store in letters
+        cout << file_contents[i];
         //checking if there's letters first
         if (isalpha(file_contents[i]))
         {
+
+            continue;
             //probably going to hard code everything
-              // temp += file_contents[i];
+            // temp += file_contents[i];
             //don't know how to deal with any letters oop
 
             // if(file_contents[i] == 't'){
@@ -98,7 +100,7 @@ vector<Token> Lexer::getNextToken()
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
-        else if (file_contents[i] == '-'|| file_contents[i] == '*')
+        else if (file_contents[i] == '-' || file_contents[i] == '*')
         {
             string symbol(1, file_contents[i]);
             Token something(symbol, symbol);
@@ -150,30 +152,29 @@ vector<Token> Lexer::getNextToken()
                 }
             }
 
+        }
+        else if (file_contents[i] == '=')
+        {
+            temp += file_contents[i];
+            if (file_contents[i + 1] == '=')
+            {
 
-
-            else if(file_contents[i] == '='){
-                temp += file_contents[i];
-                if(file_contents[i+1] == '='){
-
-                    temp += file_contents[i + 1];
-                    Token something(temp, "EQ");
-                    obtained_tokens.push_back(something);
-                }
-
-                else{
-                        Token something(temp, temp);
-                        obtained_tokens.push_back(something);
-                   }
+                temp += file_contents[i + 1];
+                Token something(temp, "EQ");
+                obtained_tokens.push_back(something);
             }
 
-
-
+            else
+            {
+                Token something(temp, temp);
+                obtained_tokens.push_back(something);
+            }
         }
 
     }
     Token end("EOF", "EOF");
     obtained_tokens.push_back(end);
+
     return obtained_tokens;
 }
 
