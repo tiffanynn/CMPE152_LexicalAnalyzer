@@ -36,6 +36,7 @@ vector<Token> Lexer::getNextToken()
     in_stream.open("test.txt");
     if (!in_stream)
     {
+
         cout << "Cannot open file." << endl;
         exit(1);
     }
@@ -47,7 +48,10 @@ vector<Token> Lexer::getNextToken()
      */
     while (in_stream.get(c))
     {
-
+//        if (isspace(c) || c == '/n')
+//        {
+//            continue;
+//        }
         file_contents[size] = c;
         size++;
 
@@ -76,7 +80,7 @@ vector<Token> Lexer::getNextToken()
                 }
             }
 
-            i = j;
+            i = j-1;
 
             if (temp == "while")
             {
@@ -143,30 +147,36 @@ vector<Token> Lexer::getNextToken()
             int j = 0;
             for (j = i; j < size; j++)
             {
-                if(!isdigit(file_contents[j])){
-                    if(file_contents[j] == '.'){
+                if (!isdigit(file_contents[j]))
+                {
+                    if (file_contents[j] == '.')
+                    {
                         temp += file_contents[j];
                     }
-                    else{
+                    else
+                    {
                         break;
                     }
                 }
-                else{
+                else
+                {
                     temp += file_contents[j];
                 }
 
             }
-//
-            i = j;
             int found = temp.find('.');
-            if(found != -1){
+            i = j-1;
+            if (found != -1)
+            {
                 Token something(temp, "FLOAT");
                 obtained_tokens.push_back(something);
             }
-            else{
-            Token something(temp, "NUM");
-            obtained_tokens.push_back(something);
-        }
+            else
+            {
+                Token something(temp, "NUM");
+                obtained_tokens.push_back(something);
+
+            }
         }
         //considering the symbols
         else if (file_contents[i] == '{' || file_contents[i] == '}')
