@@ -103,8 +103,8 @@ vector<Token> Lexer::getNextToken()
                     if(!is_Symbol(file_contents[j])){
                         temp += file_contents[j];
                     }
-                    else if(is_Symbol(file_contents[j])){
-                    break;
+                    else{
+                        break;
                     }
                 }
                 else
@@ -181,13 +181,13 @@ vector<Token> Lexer::getNextToken()
             for (j = i; j < size; j++)
             {
                 if (!isdigit(file_contents[j]))
+                //reaches a character that is not a number
                 {
-                    if (file_contents[j] == '.')
+                    if ( !is_Symbol(file_contents[j]))
                     {
                         temp += file_contents[j];
                     }
-                    else
-                    {
+                    else{
                         break;
                     }
                 }
@@ -197,8 +197,10 @@ vector<Token> Lexer::getNextToken()
                 }
 
             }
+
             int found = temp.find('.');
             i = j-1;
+
             if (found != -1)
             {
                 Token something(temp, "REAL");
