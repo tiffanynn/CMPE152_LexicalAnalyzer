@@ -13,6 +13,7 @@ class Lexer
         vector<Token> obtained_tokens;
         vector<Token> getNextToken();
         void print();
+        bool is_Symbol(char c);
         char file_contents[100];
         int size;
 };
@@ -22,6 +23,29 @@ Lexer::Lexer()
     obtained_tokens.push_back(Token("", ""));
     size = 0;
 }
+
+bool Lexer::is_Symbol(char c){
+    if(c == '{' || c == '}'){
+        return true;
+    }
+    else if(c == '/' || c == '<'){
+        return true;
+    }
+    else if(c == '>' || c == '='){
+        return true;
+    }
+    else if(c == '!' || c == ';'){
+        return true;
+    }
+    else if( isspace(c)|| c == '\n'){
+           return true;
+       }
+    else{
+        return false;
+    }
+    return 0;
+}
+
 
 //is this a function that we can use
 vector<Token> Lexer::getNextToken()
@@ -48,13 +72,8 @@ vector<Token> Lexer::getNextToken()
      */
     while (in_stream.get(c))
     {
-//        if (isspace(c) || c == '/n')
-//        {
-//            continue;
-//        }
         file_contents[size] = c;
         size++;
-
     }
     in_stream.close();
 
@@ -72,10 +91,10 @@ vector<Token> Lexer::getNextToken()
             {
                 if (!isalpha(file_contents[j]))
                 {
-                    if(file_contents[j] == '_'){
+                    if(!is_Symbol(file_contents[j])){
                         temp += file_contents[j];
                     }
-                    else{
+                    else if(is_Symbol(file_contents[j])){
                     break;
                     }
                 }
@@ -215,6 +234,19 @@ vector<Token> Lexer::getNextToken()
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
+        else if (file_contents[i] == '|')
+                {
+            temp += file_contents[i];
+            if(file_contents[i+1] == '|'){
+                temp += file_contents[i+1];
+                Token something(temp, "OR");
+                obtained_tokens.push_back(something);
+            }
+
+            else{
+                continue;
+            }
+                }
         else if (file_contents[i] == '!')
         {
             temp += file_contents[i];
