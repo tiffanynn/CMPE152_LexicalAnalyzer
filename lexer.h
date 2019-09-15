@@ -201,7 +201,7 @@ vector<Token> Lexer::getNextToken()
             i = j-1;
             if (found != -1)
             {
-                Token something(temp, "FLOAT");
+                Token something(temp, "REAL");
                 obtained_tokens.push_back(something);
             }
             else
