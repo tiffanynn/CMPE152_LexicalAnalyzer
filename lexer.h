@@ -37,7 +37,7 @@ bool Lexer::is_Symbol(char c){
     else if(c == '+' || c == '-'){
         return true;
     }
-    else if(c == '*'){
+    else if(c == '*' || c == '\t'){
            return true;
        }
     else if(c == '>' || c == '='){
