@@ -12,8 +12,6 @@ class Lexer
         Lexer();
         vector<Token> obtained_tokens;
         vector<Token> getNextToken();
-        string token_names[8] =
-        { "BASE_TYPE", "BREAK", "DO", "ELSE", "FALSE", "FOR", "IF", "WHILE" }; //need to consider "NUM" "REAL"
         void print();
         char file_contents[100];
         int size;
@@ -93,45 +91,45 @@ vector<Token> Lexer::getNextToken()
                 obtained_tokens.push_back(something);
             }
             else if (temp == "float")
-                      {
-                          Token something(temp, "BASE_TYPE");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "BASE_TYPE");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "bool")
-                      {
-                          Token something(temp, "BASE_TYPE");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "BASE_TYPE");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "true")
-                      {
-                          Token something(temp, "true");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "true");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "do")
             {
                 Token something(temp, "do");
                 obtained_tokens.push_back(something);
             }
             else if (temp == "false")
-                      {
-                          Token something(temp, "false");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "false");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "else")
-                      {
-                          Token something(temp, "else");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "else");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "break")
-                      {
-                          Token something(temp, "break");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "break");
+                obtained_tokens.push_back(something);
+            }
             else if (temp == "if")
-                      {
-                          Token something(temp, "if");
-                          obtained_tokens.push_back(something);
-                      }
+            {
+                Token something(temp, "if");
+                obtained_tokens.push_back(something);
+            }
             else
             {
                 Token something(temp, "ID");
