@@ -72,7 +72,12 @@ vector<Token> Lexer::getNextToken()
             {
                 if (!isalpha(file_contents[j]))
                 {
+                    if(file_contents[j] == '_'){
+                        temp += file_contents[j];
+                    }
+                    else{
                     break;
+                    }
                 }
                 else
                 {
