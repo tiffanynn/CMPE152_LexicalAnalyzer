@@ -12,9 +12,8 @@ class Lexer
         Lexer();
         vector<Token> obtained_tokens;
         vector<Token> getNextToken();
-        string token_names[18] =
-        { "AND", "BASE_TYPE", "BREAK", "DO", "ELSE", "EQ", "FALSE", "FOR", "GE",
-                "ID", "IF", "LE", "NE", "NUM", "OR", "REAL", "TRUE", "WHILE" };
+        string token_names[8] =
+        { "BASE_TYPE", "BREAK", "DO", "ELSE", "FALSE", "FOR", "IF", "WHILE" }; //need to consider "NUM" "REAL"
         void print();
         char file_contents[100];
         int size;
@@ -51,15 +50,9 @@ vector<Token> Lexer::getNextToken()
     while (in_stream.get(c))
     {
 
-        if (isspace(c) || c == '\n')
-        {
-            continue;
-        }
-        else
-        {
-            file_contents[size] = c;
-            size++;
-        }
+        file_contents[size] = c;
+        size++;
+
     }
     in_stream.close();
 
@@ -68,21 +61,82 @@ vector<Token> Lexer::getNextToken()
     for (int i = 0; i < size; i++)
     {
 
-        string temp = ""; //need this to store in letters
-        cout << file_contents[i];
+        string temp = ""; //need this to store in symbols/letters
         //checking if there's letters first
         if (isalpha(file_contents[i]))
         {
+            int j = 0;
+            for (j = i; j < size; j++)
+            {
+                if (!isalpha(file_contents[j]))
+                {
+                    break;
+                }
+                else
+                {
+                    temp += file_contents[j];
+                }
+            }
 
-            continue;
-            //probably going to hard code everything
-            // temp += file_contents[i];
-            //don't know how to deal with any letters oop
+            i = j;
 
-            // if(file_contents[i] == 't'){
-            //     if(file_contents[i] == 't'){}
-            //     else{}
-            // }
+            if (temp == "while")
+            {
+
+                Token something(temp, "while");
+                obtained_tokens.push_back(something);
+
+            }
+            else if (temp == "int")
+            {
+                Token something(temp, "BASE_TYPE");
+                obtained_tokens.push_back(something);
+            }
+            else if (temp == "float")
+                      {
+                          Token something(temp, "BASE_TYPE");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "bool")
+                      {
+                          Token something(temp, "BASE_TYPE");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "true")
+                      {
+                          Token something(temp, "true");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "do")
+            {
+                Token something(temp, "do");
+                obtained_tokens.push_back(something);
+            }
+            else if (temp == "false")
+                      {
+                          Token something(temp, "false");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "else")
+                      {
+                          Token something(temp, "else");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "break")
+                      {
+                          Token something(temp, "break");
+                          obtained_tokens.push_back(something);
+                      }
+            else if (temp == "if")
+                      {
+                          Token something(temp, "if");
+                          obtained_tokens.push_back(something);
+                      }
+            else
+            {
+                Token something(temp, "ID");
+                obtained_tokens.push_back(something);
+            }
 
         }
 
@@ -118,6 +172,24 @@ vector<Token> Lexer::getNextToken()
             Token something(symbol, symbol);
             obtained_tokens.push_back(something);
         }
+        else if (file_contents[i] == '!')
+        {
+            temp += file_contents[i];
+            if (file_contents[i + 1] == '=')
+            {
+                temp += file_contents[i + 1];
+                Token something(temp, "NE");
+                obtained_tokens.push_back(something);
+                i = i + 1;
+            }
+
+            else
+            {
+                Token something(temp, temp);
+                obtained_tokens.push_back(something);
+            }
+
+        }
         else if (file_contents[i] == '>' || file_contents[i] == '<')
         {
             temp = file_contents[i];
@@ -128,6 +200,7 @@ vector<Token> Lexer::getNextToken()
                     temp += file_contents[i + 1];
                     Token something(temp, "GE");
                     obtained_tokens.push_back(something);
+                    i = i + 1;
                 }
                 else
                 {
@@ -143,6 +216,7 @@ vector<Token> Lexer::getNextToken()
                     temp += file_contents[i + 1];
                     Token something(temp, "LE");
                     obtained_tokens.push_back(something);
+                    i = i + 1;
                 }
                 else
                 {
@@ -153,6 +227,24 @@ vector<Token> Lexer::getNextToken()
             }
 
         }
+        else if (file_contents[i] == '&')
+        {
+            temp += file_contents[i];
+            if (file_contents[i + 1] == '&')
+            {
+
+                temp += file_contents[i + 1];
+                Token something(temp, "AND");
+                obtained_tokens.push_back(something);
+                i = i + 1;
+            }
+
+            else
+            {
+                Token something(temp, temp);
+                obtained_tokens.push_back(something);
+            }
+        }
         else if (file_contents[i] == '=')
         {
             temp += file_contents[i];
@@ -162,6 +254,7 @@ vector<Token> Lexer::getNextToken()
                 temp += file_contents[i + 1];
                 Token something(temp, "EQ");
                 obtained_tokens.push_back(something);
+                i = i + 1;
             }
 
             else
