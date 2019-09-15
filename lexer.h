@@ -138,6 +138,36 @@ vector<Token> Lexer::getNextToken()
 
         }
 
+        else if (isdigit(file_contents[i]))
+        {
+            int j = 0;
+            for (j = i; j < size; j++)
+            {
+                if(!isdigit(file_contents[j])){
+                    if(file_contents[j] == '.'){
+                        temp += file_contents[j];
+                    }
+                    else{
+                        break;
+                    }
+                }
+                else{
+                    temp += file_contents[j];
+                }
+
+            }
+//
+            i = j;
+            int found = temp.find('.');
+            if(found != -1){
+                Token something(temp, "FLOAT");
+                obtained_tokens.push_back(something);
+            }
+            else{
+            Token something(temp, "NUM");
+            obtained_tokens.push_back(something);
+        }
+        }
         //considering the symbols
         else if (file_contents[i] == '{' || file_contents[i] == '}')
         {
