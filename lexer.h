@@ -28,9 +28,18 @@ bool Lexer::is_Symbol(char c){
     if(c == '{' || c == '}'){
         return true;
     }
+    else if(c == '(' || c == ')'){
+           return true;
+       }
     else if(c == '/' || c == '<'){
         return true;
     }
+    else if(c == '+' || c == '-'){
+        return true;
+    }
+    else if(c == '*'){
+           return true;
+       }
     else if(c == '>' || c == '='){
         return true;
     }
