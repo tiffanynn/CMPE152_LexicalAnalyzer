@@ -1,0 +1,7 @@
+int main()
+{
+int var_125 = 6;
+else if(var_125 <= 12){
+cout << "true" << endl;
+}
+}
