@@ -14,7 +14,7 @@ class Lexer
         vector<Token> getNextToken();
         void print();
         bool is_Symbol(char c);
-        char file_contents[100];
+        vector<char> file_contents;
         int size;
 };
 
@@ -44,6 +44,10 @@ bool Lexer::is_Symbol(char c){
         return true;
     }
     else if(c == '!' || c == ';'){
+        return true;
+    }
+    else if(c  == '"' || c =='\''
+            ){
         return true;
     }
     else if( isspace(c)|| c == '\n'){
@@ -81,13 +85,12 @@ vector<Token> Lexer::getNextToken()
      */
     while (in_stream.get(c))
     {
-        file_contents[size] = c;
-        size++;
+        file_contents.push_back(c);
     }
     in_stream.close();
 
     //need to consider keywords and stuff
-
+    int size = file_contents.size();
     for (int i = 0; i < size; i++)
     {
 
@@ -360,7 +363,7 @@ vector<Token> Lexer::getNextToken()
 void Lexer::print()
 {
     int vector_size = obtained_tokens.size();
-    for (int i = 0; i < vector_size; i++)
+    for (int i = 1; i < vector_size; i++)
     {
         cout << obtained_tokens[i].lexerme << '\t'
                 << obtained_tokens[i].token_value << endl;
