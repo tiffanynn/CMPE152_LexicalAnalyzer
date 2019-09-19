@@ -1,5 +1,5 @@
 # CMPE152_LexicalAnalyzer
-Lexical analyzer in C++
+Lexical analyzer for CMPE 152 in C++
 
 **By**: Austin Tran, Tiffany Nguyen, Hanna Oh, & Tien Tran
 
@@ -18,7 +18,7 @@ change test.txt to the file name you want to test -- make sure your files are ou
 
 
 **For terminal:**
-We installed a g++ compiler using the command: sudo apt-get install build-essential
+We installed a g++ compiler using the command on Terminal: sudo apt-get install build-essential
 
 ** Then, we compiled our file main.cpp in the command: gcc+ lexer.h main.cpp token.h
 
