@@ -79,9 +79,9 @@ vector<Token> Lexer::getNextToken()
     }
 
     /*
-     1. Scan characters from the file into an array or something lol
+     1. Scan characters from the file into a vector
      2. Have a for-loop comparing the characters and tokens
-     3. Push into the vector
+     3. Push into the main vector that has all of the valid tokens
      */
     while (in_stream.get(c))
     {

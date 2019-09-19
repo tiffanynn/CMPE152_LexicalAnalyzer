@@ -1,0 +1,17 @@
+int main()
+{
+    int var_125 = 6;
+    if(var_125 / 2 == '3'){
+        cout << "True" << endl;
+    }
+    else if (var_125 / 3 == '12'){
+        cout << "False" << endl;
+    }
+    if(var_125 >= 10){
+        cout << "False" << endl;
+    }
+    else if(var_125 <= 12){
+        cout << "True" << endl;
+    }
+
+}
