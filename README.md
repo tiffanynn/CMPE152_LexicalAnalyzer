@@ -20,6 +20,6 @@ change test.txt to the file name you want to test -- make sure your files are ou
 **For terminal:**
 We installed a g++ compiler using the command on Terminal: sudo apt-get install build-essential
 
-** Then, we compiled our file main.cpp in the command: gcc+ lexer.h main.cpp token.h
+** Then, we compiled our file lexertest.cpp in the command: gcc+ lexer.h lexertest.cpp token.h
 
 ** Just type "./a.out" and the output will show up on the terminal
