@@ -274,8 +274,8 @@ vector<Token> Lexer::getNextToken()
 
             else
             {
-                Token something(temp, temp);
-                obtained_tokens.push_back(something);
+                cout << "Not a valid token!" << endl;
+                exit(1);
             }
 
         }
@@ -351,6 +351,10 @@ vector<Token> Lexer::getNextToken()
                 Token something(temp, temp);
                 obtained_tokens.push_back(something);
             }
+        }
+        else if (file_contents[i] == '[' || file_contents[i] == ']'){
+            cout << "Not a valid token!" << endl;
+            exit(1);
         }
 
     }
